@@ -10,9 +10,9 @@ backend/                 Python API (FastAPI)
   run.py                 dev server entry point
   app/
     main.py              app setup, CORS, router registration
-    api/routes/          HTTP endpoints (dashboard.py)
+    api/routes/          HTTP endpoints (dashboard.py, accounts.py)
     schemas/             Pydantic response models
-    data/                placeholder data (replace with real sources)
+    data/                CSV dataset + csv_store.py reader; mock_data.py backs the dashboard
 frontend/                React UI (Vite)
   src/
     App.jsx              root layout, holds the Current/Plan mode
@@ -45,3 +45,11 @@ npm run dev
 
 The frontend proxies `/api` to the backend. If the backend isn't running, the
 cards still render with zeroed placeholder values.
+
+## API
+
+- `GET /api/dashboard/{mode}` — dashboard cards for `current` or `plan`.
+- `GET /api/accounts/{account_id}` — account details with owners, cards, loans,
+  standing orders, monthly summary, and transactions (newest first). Use
+  `limit` (default 100, max 5000) and `offset` to page transactions.
+- `GET /api/health` — health check.
