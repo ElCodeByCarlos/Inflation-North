@@ -1,6 +1,14 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from pathlib import Path
 
+from dotenv import load_dotenv
+
+# Load backend/.env (GEMINI_API_KEY etc.) before anything reads env vars.
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+
+from fastapi import FastAPI  # noqa: E402
+from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
+
+from app.api.routes import dashboard, insights  # noqa: E402
 from app.api.routes import accounts, dashboard
 
 app = FastAPI(title="Finance Dashboard API", version="0.1.0")
@@ -13,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(dashboard.router, prefix="/api")
+app.include_router(insights.router, prefix="/api")
 app.include_router(accounts.router, prefix="/api")
 
 
