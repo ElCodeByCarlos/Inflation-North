@@ -1,0 +1,29 @@
+.dashboard__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dashboard__heading h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.dashboard__notice {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 720px) {
+  .dashboard__grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,47 @@
+.taskbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.taskbar__brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.taskbar__actions {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.taskbar__btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.taskbar__btn:hover {
+  color: var(--text);
+}
+
+.taskbar__btn.is-active {
+  background: var(--primary);
+  color: #fff;
+}
