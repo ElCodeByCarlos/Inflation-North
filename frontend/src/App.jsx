@@ -1,20 +1,35 @@
-import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router"
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router";
 import Taskbar from "./components/Taskbar/Taskbar.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import { AccountDashboard } from "./pages/AccountDashboard/AccountDashboard.jsx";
 import { MODES } from "./constants/categories.js";
 
-export default function App() {
-  const [mode, setMode] = useState(MODES.CURRENT);
+function AppLayout() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const mode = pathname === "/plan" ? MODES.PLAN : MODES.CURRENT;
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard mode={mode} />} />
-        <Route path="/plan" element={<Dashboard mode={MODES.PLAN} />} />
-        <Route path="/accounts/:accountId" element={<AccountDashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="app">
+      <Taskbar
+        mode={mode}
+        onModeChange={(next) => navigate(next === MODES.PLAN ? "/plan" : "/")}
+      />
+      <main className="app__content">
+        <Routes>
+          <Route path="/" element={<Dashboard mode={MODES.CURRENT} />} />
+          <Route path="/plan" element={<Dashboard mode={MODES.PLAN} />} />
+          <Route path="/accounts/:accountId" element={<AccountDashboard />} />
+        </Routes>
+      </main>
+    </div>
+  );
+}
 
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppLayout />
+    </BrowserRouter>
   );
 }
