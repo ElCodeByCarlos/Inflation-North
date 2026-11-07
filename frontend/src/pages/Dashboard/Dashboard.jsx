@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CategoryCard from "../../components/CategoryCard/CategoryCard.jsx";
+import AiInsights from "../../components/AiInsights/AiInsights.jsx";
 import { fetchDashboard } from "../../services/api.js";
 import { FALLBACK_CATEGORIES, MODES } from "../../constants/categories.js";
 import "./Dashboard.css";
@@ -39,6 +40,7 @@ export default function Dashboard({ mode }) {
           <CategoryCard key={c.key} category={c} />
         ))}
       </div>
+      <AiInsights mode={mode} />
     </section>
   );
 }
