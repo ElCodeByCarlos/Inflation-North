@@ -158,3 +158,6 @@ All routes are under `/api`.
 # Design
 We used Figma for our design work. We used a mixture of Agentic and manual work in order to finalize our design.
 Our final Figma design for our dashboard ended up looking like ![Financial Dashboard](https://github.com/ElCodeByCarlos/Inflation-North/blob/update-readme/img/FinancialNorthDashboard.png)
+
+# Credits
+Our project makes use of PKDD'99 Discovery Challenge Financial dataset. This dataset [can be found here](https://relational.fel.cvut.cz/dataset/Financial)
