@@ -40,3 +40,4 @@ There is no test runner, linter, or typechecker configured. Do not invent `npm t
 - In dev, Vite's `/api` proxy bypasses CORS. Backend CORS allows only `http://localhost:5173`, so open the frontend at `localhost`, not `127.0.0.1`.
 - No env files or env vars; nothing to configure.
 - Styling: one CSS file per component imported by that component; theme vars and dark mode live in `frontend/src/styles/global.css`.
+- Design-system and Figma MCP rules (tokens, components, workflows, pitfalls): see [`CLAUDE.md`](./CLAUDE.md).
