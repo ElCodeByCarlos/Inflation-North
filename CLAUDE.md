@@ -132,7 +132,9 @@ when private (e.g. `Section` and `Field` inside `AccountDetails.jsx`).
 | `Dashboard` | `pages/Dashboard/Dashboard.jsx` | `mode`, `accountId` | `dashboard`, `dashboard__heading`, `dashboard__notice`, `dashboard__grid` | offline notice, plan notice |
 | `AccountDashboard` | `pages/AccountDashboard/AccountDashboard.jsx` | routed params | `account-dashboard__*` | **Unused/legacy — see §7.3** |
 
-**Documentation/storybook:** none. The components themselves and this table are the documentation.
+**Documentation/storybook:** none in the repo. The components themselves and this table are the
+documentation. A matching Figma component library is authored in the design-system file — see §2.1.1
+for pages, component sets, variant names, and node IDs.
 
 **The canonical accent pattern** (copy this for any new category-colored surface):
 
@@ -324,6 +326,51 @@ modes and the 12 variables in the table below; update it in place rather than cr
 6. Mirror the component inventory in §1.2: `Taskbar`, `AccountPicker`, `CategoryCard`, `AiInsights`,
    `AccountDetails`, `Dashboard`. Use the same state names (`is-active`, `is-open`, `is-invalid`,
    `is-selected`, `up/down/flat`) so design and code vocabulary match.
+
+#### 2.1.1 Authored Figma library (current state)
+
+**File:** [Finance Dashboard Design System](https://www.figma.com/design/sCkuf8XLNVZcBTaJMoLNYU)
+(file key `sCkuf8XLNVZcBTaJMoLNYU`).
+
+**Pages**
+
+| Page | Node ID | Contents |
+| --- | --- | --- |
+| `Foundations` | `0:1` | `Color Tokens` specimen (`6:464`): 12 tokens × Light/Dark swatches, bound to the `Color` collection |
+| `Components` | `2:2` | Component sets and `AccountDetails` (table below) |
+| `Screens` | `2:3` | `Dashboard / Light` (`6:2`) and `Dashboard / Dark` (`6:291`), both 1100 px wide |
+
+**Component sets** (all fills, strokes, and text colors are bound to the `Color` variables; the only
+raw paint is `#fff` on `--primary` buttons, matching code)
+
+| Set / component | Node ID | Variants | Mirrors |
+| --- | --- | --- | --- |
+| `ModeToggle` | `3:14` | `Mode=Current`, `Mode=Plan` | `.taskbar__actions` + `.taskbar__btn` |
+| `AccountPicker` | `3:46` | `State=Closed`, `State=Open`, `State=Invalid` | `.picker` (menu uses `Shadow/Menu`) |
+| `Taskbar` | `3:77` | `Mode=Current`, `Mode=Plan` | `.taskbar` (composes picker + toggle instances) |
+| `CategoryCard` | `3:186` | `Category={Income,Savings,Expenses,Investments}` × `Trend={Up,Down,Flat}` = 12 | `.card`, accent top rule, 14% icon tint |
+| `AiInsights` | `3:226` | `State=Default`, `State=Loading`, `State=Error`, `State=Result` | `.ai` |
+| `DetailsSection` | `3:298` | `Type=Fields`, `Type=Table`; text properties `Title` + `Count` | `.details__section` / `.details__fields` / `.details__table` |
+| `AccountDetails` | `3:410` | single component (Account Fields + Transactions Table) | `.details` |
+
+`DetailsSection` exposes `Title` and `Count` text properties; `Type=Table` uses both, while
+`Type=Fields` uses only `Title`. Override them on instances (e.g. `AccountDetails` sets the table to
+`Transactions` / `50 of 240`) instead of detaching or editing the main component.
+
+**Effect style:** `Shadow/Menu` (`S:39a98233780ca2c96201328cf05d8be634953abe,`) =
+`0 12px 28px rgba(15, 23, 42, 0.18)`, applied to the open picker menu only.
+
+**Theming:** `Dashboard / Dark` sets an explicit `Dark` mode override on the `Color` collection, so
+the screen previews the same tokens the `prefers-color-scheme: dark` block produces in code. Do not
+add per-node dark colors to the components; keep them bound to the variables.
+
+**Typography caveat:** the Figma file uses Inter (Figma's default UI family) as a neutral stand-in for
+the code's `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` stack. This is a design-file
+approximation only. Do **not** translate Inter into CSS or add a font dependency (§1.4, §7.13).
+
+**Updating the library:** edit the variant components inside their sets (not detached copies), then
+refresh the `Screens` instances. Keep set names, variant property names, and node descriptions intact
+so design↔code vocabulary stays aligned with §1.2.
 
 ### 2.2 Reading a design into code (design → code)
 
