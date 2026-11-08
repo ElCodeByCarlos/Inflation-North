@@ -58,8 +58,7 @@ frontend/                     React UI (Vite)
 
 ## Data
 
-`backend/app/data/` contains the classic PKDD'99 financial/banking dataset plus a
-derived monthly rollup:
+`backend/app/data/` contains the Tangerine dataset used in this project. 
 
 | File | Contents |
 | --- | --- |
