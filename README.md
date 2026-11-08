@@ -158,4 +158,4 @@ All routes are under `/api`.
 
 # Design
 We used Figma for our design work. We used a mixture of Agentic and manual work in order to finalize our design.
-Our final Figma design for our dashboard ended up looking like ![[./img/FinancialNorthDashboard.png]]
+Our final Figma design for our dashboard ended up looking like ![Financial Dashboard](https://github.com/ElCodeByCarlos/Inflation-North/blob/update-readme/img/FinancialNorthDashboard.png)
