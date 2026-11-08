@@ -11,6 +11,13 @@ export const CATEGORY_META = {
   investments: { icon: "▲", accent: "var(--investments)" },
 };
 
+// Plan mode "what if" scenarios; values match backend/app/schemas/plan.py `Scenario`.
+export const SCENARIOS = [
+  { value: "accident", label: "Accident" },
+  { value: "luxury", label: "Luxury" },
+  { value: "no_income", label: "No income" },
+];
+
 // Used when the backend is not running, so the UI still renders.
 export const FALLBACK_CATEGORIES = [
   { key: "income", title: "Income", amount: 0, change: 0 },

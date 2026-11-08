@@ -19,6 +19,7 @@
   --expenses: #8a5a3b;
   --investments: #3f6b7d;
 
+<<<<<<< Updated upstream
   --positive: #2f6f52;
   --negative: #b4412f;
 
@@ -27,10 +28,16 @@
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-display: "IBM Plex Sans Devanagari", "Inter", system-ui, sans-serif;
   --font-serif: "PT Serif", Georgia, "Times New Roman", serif;
+=======
+  --positive: #2f9e44;
+  --negative: #e03131;
+  --warning: #d9820b;
+>>>>>>> Stashed changes
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
+<<<<<<< Updated upstream
     --bg: #101713;
     --surface: #17211c;
     --surface-soft: #1b2721;
@@ -50,6 +57,15 @@
     --negative: #ef8a74;
 
     --shadow-card: 0 3px 12px rgba(0, 0, 0, 0.3);
+=======
+    --bg: #11151c;
+    --surface: #1a2029;
+    --border: #2a323f;
+    --text: #e6e9ef;
+    --muted: #9aa4b2;
+    --primary: #5c7cfa;
+    --warning: #fab005;
+>>>>>>> Stashed changes
   }
 }
 

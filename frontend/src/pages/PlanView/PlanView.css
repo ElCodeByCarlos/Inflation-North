@@ -1,0 +1,79 @@
+.scenario {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.scenario__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.scenario__field--grow {
+  flex: 1;
+}
+
+.scenario__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.scenario__input {
+  width: 100%;
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.scenario__input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -1px;
+}
+
+.scenario__button {
+  align-self: flex-end;
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.scenario__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.scenario__notice {
+  margin: -8px 0 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.scenario__notice--error {
+  color: var(--negative);
+}
+
+@media (max-width: 720px) {
+  .scenario {
+    flex-direction: column;
+  }
+
+  .scenario__button {
+    align-self: stretch;
+  }
+}
