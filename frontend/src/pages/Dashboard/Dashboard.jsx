@@ -41,7 +41,9 @@ export default function Dashboard({ mode, accountId }) {
         {(month || offline || mode === MODES.PLAN) && (
           <div className="dashboard__notices">
             {month && <span>Figures for {month}</span>}
-            {mode === MODES.PLAN && !offline && <span>Plan figures are placeholders</span>}
+            {mode === MODES.PLAN && !offline && !hasAccount && (
+              <span>Plan figures are placeholders</span>
+            )}
             {offline && (
               <span className="dashboard__notice--warning">Backend offline, showing placeholders</span>
             )}
