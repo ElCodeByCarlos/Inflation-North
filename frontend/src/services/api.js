@@ -33,3 +33,14 @@ export async function fetchInsights(mode, question) {
   if (!res.ok) throw new Error(data.detail || `Request failed: ${res.status}`);
   return data;
 }
+
+export async function fetchScenarioPlan({ type, amount, accountId }) {
+  const res = await fetch(`${BASE_URL}/scenario/plan`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ type, amount, account_id: accountId ?? null }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.detail || `Request failed: ${res.status}`);
+  return data;
+}

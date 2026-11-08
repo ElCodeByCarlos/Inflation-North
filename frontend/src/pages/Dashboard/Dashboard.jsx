@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CategoryCard from "../../components/CategoryCard/CategoryCard.jsx";
 import AiInsights from "../../components/AiInsights/AiInsights.jsx";
 import AccountDetails from "../../components/AccountDetails/AccountDetails.jsx";
+import ScenarioForm from "../../components/ScenarioForm/ScenarioForm.jsx";
 import { fetchDashboard } from "../../services/api.js";
 import { FALLBACK_CATEGORIES, MODES } from "../../constants/categories.js";
 import "./Dashboard.css";
@@ -47,6 +48,10 @@ export default function Dashboard({ mode, accountId }) {
           </div>
         )}
       </div>
+
+      {mode === MODES.PLAN && (
+        <ScenarioForm accountId={accountId} />
+      )}
 
       <div className="dashboard__grid">
         {categories.map((c, index) => (
