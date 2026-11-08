@@ -69,6 +69,12 @@
   grid-template-areas: "insights";
 }
 
+/* Compound selector so it also wins over the 1040px stacked layout. */
+.dashboard__activity.dashboard__activity--details-only {
+  grid-template-columns: 1fr;
+  grid-template-areas: "details";
+}
+
 @media (max-width: 1040px) {
   .dashboard__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

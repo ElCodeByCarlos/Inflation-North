@@ -12,6 +12,7 @@ export default function Dashboard({ mode, accountId }) {
   const [month, setMonth] = useState(null);
   const [offline, setOffline] = useState(false);
   const hasAccount = accountId != null;
+  const showInsights = mode !== MODES.PLAN;
 
   useEffect(() => {
     let cancelled = false;
@@ -61,14 +62,24 @@ export default function Dashboard({ mode, accountId }) {
         ))}
       </div>
 
-      <div className={`dashboard__activity ${hasAccount ? "" : "dashboard__activity--solo"}`}>
-        <AiInsights mode={mode} />
-        {hasAccount && (
-          <div className="dashboard__activity-main">
-            <AccountDetails accountId={accountId} />
-          </div>
-        )}
-      </div>
+      {(showInsights || hasAccount) && (
+        <div
+          className={`dashboard__activity ${
+            !hasAccount
+              ? "dashboard__activity--solo"
+              : !showInsights
+                ? "dashboard__activity--details-only"
+                : ""
+          }`}
+        >
+          {showInsights && <AiInsights mode={mode} />}
+          {hasAccount && (
+            <div className="dashboard__activity-main">
+              <AccountDetails accountId={accountId} />
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 }
