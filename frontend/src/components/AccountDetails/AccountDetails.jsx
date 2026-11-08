@@ -18,9 +18,9 @@ function ageFrom(birthDate) {
   return age;
 }
 
-function Section({ title, count, children }) {
+function Section({ title, count, className = "", children }) {
   return (
-    <section className="details__section">
+    <section className={`details__section ${className}`.trim()}>
       <h3 className="details__title">
         {title}
         {count != null && <span className="details__count">{count}</span>}
@@ -82,6 +82,40 @@ export default function AccountDetails({ accountId }) {
 
   return (
     <div className="details">
+      <Section
+        title="Transactions"
+        count={`${transactions.length} of ${totalTx}`}
+        className="details__section--transactions"
+      >
+        <div className="details__table-wrap details__table-wrap--scroll">
+          <table className="details__table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Operation</th><th>Purpose</th><th>Partner</th>
+                <th className="num">Amount</th><th className="num">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transactions.map((t) => (
+                <tr key={t.transaction_id}>
+                  <td>{t.date}</td>
+                  <td>{t.operation ?? "—"}</td>
+                  <td>{t.purpose ?? "—"}</td>
+                  <td>{t.partner_bank ? `${t.partner_bank} ${t.partner_account ?? ""}` : "—"}</td>
+                  <td className={`num ${t.signed_amount < 0 ? "neg" : "pos"}`}>{fmt(t.signed_amount)}</td>
+                  <td className="num">{fmt(t.balance)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {transactions.length < totalTx && (
+          <button className="details__more" type="button" onClick={loadMore} disabled={loadingMore}>
+            {loadingMore ? "Loading…" : `Load ${Math.min(PAGE, totalTx - transactions.length)} more`}
+          </button>
+        )}
+      </Section>
+
       <Section title="Account">
         <dl className="details__fields">
           <Field label="Account ID" value={account.account_id} />
@@ -206,36 +240,6 @@ export default function AccountDetails({ accountId }) {
           </div>
         </Section>
       )}
-
-      <Section title="Transactions" count={`${transactions.length} of ${totalTx}`}>
-        <div className="details__table-wrap">
-          <table className="details__table">
-            <thead>
-              <tr>
-                <th>Date</th><th>Operation</th><th>Purpose</th><th>Partner</th>
-                <th className="num">Amount</th><th className="num">Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((t) => (
-                <tr key={t.transaction_id}>
-                  <td>{t.date}</td>
-                  <td>{t.operation ?? "—"}</td>
-                  <td>{t.purpose ?? "—"}</td>
-                  <td>{t.partner_bank ? `${t.partner_bank} ${t.partner_account ?? ""}` : "—"}</td>
-                  <td className={`num ${t.signed_amount < 0 ? "neg" : "pos"}`}>{fmt(t.signed_amount)}</td>
-                  <td className="num">{fmt(t.balance)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {transactions.length < totalTx && (
-          <button className="details__more" type="button" onClick={loadMore} disabled={loadingMore}>
-            {loadingMore ? "Loading…" : `Load ${Math.min(PAGE, totalTx - transactions.length)} more`}
-          </button>
-        )}
-      </Section>
     </div>
   );
 }

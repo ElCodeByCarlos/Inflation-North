@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import arrowDownIcon from "../../assets/arrow-down.svg";
 import "./AccountPicker.css";
 
 // Searchable account selector: type part of an ID/district to filter the list.
@@ -123,7 +124,12 @@ export default function AccountPicker({ accounts, accountId, onChange }) {
           tabIndex={-1}
           onClick={() => setOpen((isOpen) => !isOpen)}
         >
-          <span className={`picker__caret ${open ? "is-open" : ""}`} aria-hidden="true" />
+          <img
+            className={`picker__caret ${open ? "is-open" : ""}`}
+            src={arrowDownIcon}
+            alt=""
+            aria-hidden="true"
+          />
         </button>
 
         {open && (

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchInsights } from "../../services/api.js";
+import messageIcon from "../../assets/message.svg";
+import continueIcon from "../../assets/continue.svg";
 import "./AiInsights.css";
+
+const EXAMPLES = ["Explain a transaction", "Summarize my transactions"];
 
 export default function AiInsights({ mode }) {
   const [question, setQuestion] = useState("");
@@ -31,24 +35,48 @@ export default function AiInsights({ mode }) {
   return (
     <section className="ai">
       <div className="ai__header">
-        <h2 className="ai__title">AI insights</h2>
-        {result && <span className="ai__model">{result.model}</span>}
+        <span className="ai__badge" aria-hidden="true">
+          <img src={messageIcon} alt="" />
+        </span>
+        <h2 className="ai__title">Get Insights</h2>
       </div>
+      <p className="ai__lede">Ask a question about your account or transactions.</p>
+
       <form className="ai__form" onSubmit={handleSubmit}>
-        <input
+        <textarea
           className="ai__input"
-          type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Ask about your finances (optional)"
+          placeholder="Ask a question..."
           maxLength={1000}
+          rows={3}
         />
+        <div className="ai__examples">
+          {EXAMPLES.map((example) => (
+            <button
+              key={example}
+              type="button"
+              className="ai__example"
+              onClick={() => setQuestion(example)}
+            >
+              {example}
+            </button>
+          ))}
+        </div>
         <button className="ai__button" type="submit" disabled={loading}>
-          {loading ? "Thinking…" : "Generate"}
+          <span>{loading ? "Thinking…" : "Ask question"}</span>
+          <img src={continueIcon} alt="" aria-hidden="true" />
         </button>
       </form>
+
       {error && <p className="ai__error">{error}</p>}
-      {result && <p className="ai__text">{result.text}</p>}
+      {result && (
+        <div className="ai__result">
+          {result.model && <span className="ai__model">{result.model}</span>}
+          <p className="ai__text">{result.text}</p>
+        </div>
+      )}
+      <p className="ai__powered">Powered by Gemini</p>
     </section>
   );
 }
