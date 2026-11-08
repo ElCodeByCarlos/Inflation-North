@@ -1,26 +1,36 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router";
 import Taskbar from "./components/Taskbar/Taskbar.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import { AccountDashboard } from "./pages/AccountDashboard/AccountDashboard.jsx";
 import { MODES } from "./constants/categories.js";
+import { fetchAccounts } from "./services/api.js";
 
-function AppLayout() {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const mode = pathname === "/plan" ? MODES.PLAN : MODES.CURRENT;
+export default function App() {
+  const [mode, setMode] = useState(MODES.CURRENT);
+  const [accounts, setAccounts] = useState([]);
+  const [accountId, setAccountId] = useState(null);
+
+  useEffect(() => {
+    fetchAccounts()
+      .then((list) => {
+        setAccounts(list);
+        if (list.length > 0) setAccountId(list[0].account_id);
+      })
+      .catch(() => setAccounts([])); // backend offline: picker hidden, Dashboard shows fallback
+  }, []);
 
   return (
     <div className="app">
       <Taskbar
         mode={mode}
-        onModeChange={(next) => navigate(next === MODES.PLAN ? "/plan" : "/")}
+        onModeChange={setMode}
+        accounts={accounts}
+        accountId={accountId}
+        onAccountChange={setAccountId}
       />
       <main className="app__content">
-        <Routes>
-          <Route path="/" element={<Dashboard mode={MODES.CURRENT} />} />
-          <Route path="/plan" element={<Dashboard mode={MODES.PLAN} />} />
-          <Route path="/accounts/:accountId" element={<AccountDashboard />} />
-        </Routes>
+        <Dashboard mode={mode} accountId={accountId} />
       </main>
     </div>
   );

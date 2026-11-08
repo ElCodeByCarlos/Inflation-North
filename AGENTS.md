@@ -26,12 +26,13 @@ There is no test runner, linter, or typechecker configured. Do not invent `npm t
 
 ## Data contract
 
-- `backend/app/main.py` mounts two routers at `/api`: `GET /api/dashboard/{mode}`, `GET /api/accounts/{account_id}`, plus `GET /api/health`.
-- Dashboard: `backend/app/schemas/dashboard.py` defines `Mode = "current" | "plan"` and category keys `income | savings | expenses | investments`. `backend/app/data/mock_data.py` is still hardcoded placeholder data for these cards.
-- Account: `backend/app/schemas/account.py` defines the response. `backend/app/data/csv_store.py` reads the CSVs in `backend/app/data/` and returns `account`, `district`, `owners`, `cards`, `loans`, `standing_orders`, `monthly_summary`, and newest-first `transactions`. `limit`/`offset` page only transactions; `transaction_total` is the unpaged count. Unknown IDs return 404.
-- The CSV store uses the stdlib `csv` module (no pandas). Small tables load once via `lru_cache`; the large `transactions.csv` (100 MB) and `monthly_summary.csv` are scanned lazily and cached per account. Avoid loading them fully into memory.
-- CSV parsing quirks to preserve: `days_below_zero` contains values like `0.0` (parse as float then int); district 69 has empty unemployment/crime fields (optional); `loans.csv` quotes `status_meaning` values containing commas.
-- Dashboard category keys/modes are duplicated in `frontend/src/constants/categories.js` (`MODES`, `CATEGORY_META`, `FALLBACK_CATEGORIES`) and colored by `--income`/`--savings`/`--expenses`/`--investments` in `frontend/src/styles/global.css`. Adding or renaming a category/mode means updating all three places.
+- `backend/app/main.py` mounts routers at `/api`. Endpoints: `GET /api/health`, `GET /api/dashboard/{mode}?account_id=`, `POST /api/insights/{mode}`, `GET /api/accounts`, `GET /api/accounts/{account_id}`, `GET /api/accounts/{account_id}/transactions?limit=&offset=`.
+- Real data: the CSVs in `backend/app/data/` are loaded once at startup (FastAPI lifespan) by `backend/app/data/store.py` using pandas; all reads go through `store.py`, and any future write/manipulation logic belongs there too. Response models live in `backend/app/schemas/accounts.py`.
+- CSV joins: `accounts.district_id → districts`; `dispositions` links `account_id ↔ client_id` (type `owner` / `authorized user`); `cards.disposition_id → dispositions`; `loans`, `standing_orders`, `monthly_summary`, `transactions` key on `account_id`.
+- `GET /api/dashboard/current?account_id=X` computes cards from that account's latest `monthly_summary` month (income = money_in, expenses = money_out, savings = in − out, `investments` key = month_end_balance, shown as "Balance"). `plan` mode and requests without `account_id` still use `mock_data.py`.
+- `backend/app/schemas/dashboard.py` is the source of truth: `Mode = "current" | "plan"` and category keys `income | savings | expenses | investments`.
+- Those same keys/modes are duplicated in `frontend/src/constants/categories.js` (`MODES`, `CATEGORY_META`, `FALLBACK_CATEGORIES`) and colored by `--income`/`--savings`/`--expenses`/`--investments` in `frontend/src/styles/global.css`. Adding or renaming a category/mode means updating all three places.
+- `backend/app/data/mock_data.py` is hardcoded placeholder data, now used only for `plan` mode and by the insights route.
 
 ## Gotchas
 
