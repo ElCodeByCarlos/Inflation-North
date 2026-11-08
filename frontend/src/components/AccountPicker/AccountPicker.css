@@ -1,0 +1,30 @@
+.picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.picker__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.picker__input {
+  width: 160px;
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.picker__input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -1px;
+}
+
+.picker__input.is-invalid {
+  border-color: var(--negative);
+}

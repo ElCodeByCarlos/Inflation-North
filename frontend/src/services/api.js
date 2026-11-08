@@ -1,9 +1,26 @@
 const BASE_URL = "/api";
 
-export async function fetchDashboard(mode) {
-  const res = await fetch(`${BASE_URL}/dashboard/${mode}`);
+async function getJson(path) {
+  const res = await fetch(`${BASE_URL}${path}`);
   if (!res.ok) throw new Error(`Request failed: ${res.status}`);
   return res.json();
+}
+
+export function fetchDashboard(mode, accountId) {
+  const query = accountId != null ? `?account_id=${accountId}` : "";
+  return getJson(`/dashboard/${mode}${query}`);
+}
+
+export function fetchAccounts() {
+  return getJson("/accounts");
+}
+
+export function fetchAccount(accountId) {
+  return getJson(`/accounts/${accountId}`);
+}
+
+export function fetchTransactions(accountId, { limit = 50, offset = 0 } = {}) {
+  return getJson(`/accounts/${accountId}/transactions?limit=${limit}&offset=${offset}`);
 }
 
 export async function fetchInsights(mode, question) {

@@ -1,4 +1,4 @@
-from typing import List, Literal
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel
 
@@ -14,4 +14,6 @@ class Category(BaseModel):
 
 class Dashboard(BaseModel):
     mode: Mode
+    account_id: Optional[int] = None
+    month: Optional[str] = None  # "YYYY-MM" the figures come from (real data only)
     categories: List[Category]

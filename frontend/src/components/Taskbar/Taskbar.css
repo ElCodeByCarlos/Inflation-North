@@ -16,6 +16,14 @@
   font-size: 1.05rem;
 }
 
+.taskbar__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
 .taskbar__actions {
   display: flex;
   gap: 4px;
