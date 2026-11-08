@@ -33,6 +33,7 @@ app.add_middleware(
 app.include_router(accounts.router, prefix="/api")
 app.include_router(dashboard.router, prefix="/api")
 app.include_router(insights.router, prefix="/api")
+app.include_router(accounts.router, prefix="/api")
 
 
 @app.get("/api/health")
