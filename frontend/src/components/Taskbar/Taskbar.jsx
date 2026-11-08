@@ -12,7 +12,7 @@ export default function Taskbar({ mode, onModeChange, accounts, accountId, onAcc
     <header className="taskbar">
       <div className="taskbar__inner">
         <div className="taskbar__brand">
-          <span className="taskbar__name">Financial North</span>
+          <span className="taskbar__name">Inflation North</span>
           <span className="taskbar__tagline">Finance, Security, Stability</span>
         </div>
         <div className="taskbar__controls">
