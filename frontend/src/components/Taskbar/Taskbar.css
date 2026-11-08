@@ -2,18 +2,44 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.taskbar__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 14px 24px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  gap: 24px;
+  max-width: 1280px;
+  min-height: 104px;
+  margin: 0 auto;
+  padding: 18px 48px;
 }
 
 .taskbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.taskbar__name {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
   font-weight: 700;
-  font-size: 1.05rem;
+  line-height: 1.1;
+  letter-spacing: 0.8px;
+  color: var(--text-strong);
+  white-space: nowrap;
+}
+
+.taskbar__tagline {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  letter-spacing: -0.48px;
+  color: var(--subtitle);
+  white-space: nowrap;
 }
 
 .taskbar__controls {
@@ -21,7 +47,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 16px;
+  gap: 20px;
 }
 
 .taskbar__actions {
@@ -38,8 +64,9 @@
   background: transparent;
   color: var(--muted);
   font: inherit;
-  font-weight: 600;
-  padding: 8px 18px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 9px 18px;
   border-radius: 7px;
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
@@ -51,5 +78,34 @@
 
 .taskbar__btn.is-active {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
+}
+
+@media (max-width: 1220px) {
+  .taskbar__tagline {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .taskbar__inner {
+    padding: 16px 24px;
+  }
+
+  .taskbar__name {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .taskbar__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .taskbar__controls {
+    width: 100%;
+    justify-content: space-between;
+  }
 }

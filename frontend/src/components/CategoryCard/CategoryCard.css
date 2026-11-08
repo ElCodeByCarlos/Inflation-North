@@ -1,57 +1,79 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 20px;
+  gap: 15px;
+  min-height: 182px;
+  padding: 24px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-top: 4px solid var(--accent);
-  border-radius: 12px;
-  min-height: 220px;
-}
-
-.card__header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.card__icon {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  font-weight: 700;
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
 }
 
 .card__title {
   margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
   color: var(--muted);
 }
 
 .card__amount {
-  margin: 4px 0 0;
-  font-size: 1.9rem;
-  font-weight: 700;
+  margin: 0;
+  font-size: clamp(2rem, 3.6vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  color: var(--text);
   font-variant-numeric: tabular-nums;
 }
 
 .card__change {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  color: var(--muted);
 }
-.card__change--up { color: var(--positive); }
-.card__change--down { color: var(--negative); }
-.card__change--flat { color: var(--muted); }
 
-.card__body {
-  flex: 1;
-  margin-top: 8px;
-  border: 1px dashed var(--border);
-  border-radius: 8px;
+.card__change-value {
+  font-weight: 500;
+}
+
+.card__change--up .card__change-value {
+  color: var(--positive);
+}
+
+.card__change--down .card__change-value {
+  color: var(--negative);
+}
+
+.card--featured {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.card--featured .card__title {
+  color: var(--primary-muted);
+}
+
+.card--featured .card__amount {
+  color: var(--on-primary);
+}
+
+.card--featured .card__change {
+  color: var(--primary-muted);
+}
+
+.card--featured .card__change--up .card__change-value {
+  color: #a8d8b9;
+}
+
+.card--featured .card__change--down .card__change-value {
+  color: #f3c8bd;
+}
+
+@media (max-width: 1040px) {
+  .card__amount {
+    font-size: 2.5rem;
+  }
 }

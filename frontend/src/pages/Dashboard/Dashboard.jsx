@@ -10,6 +10,7 @@ export default function Dashboard({ mode, accountId }) {
   const [categories, setCategories] = useState(FALLBACK_CATEGORIES);
   const [month, setMonth] = useState(null);
   const [offline, setOffline] = useState(false);
+  const hasAccount = accountId != null;
 
   useEffect(() => {
     let cancelled = false;
@@ -33,26 +34,34 @@ export default function Dashboard({ mode, accountId }) {
 
   return (
     <section className="dashboard">
-      <div className="dashboard__heading">
-        <h1>
-          {accountId != null && `Account ${accountId} · `}
-          {mode === MODES.PLAN ? "Plan" : "Current"} overview
-        </h1>
-        {month && <span className="dashboard__notice">Figures for {month}</span>}
-        {mode === MODES.PLAN && !offline && (
-          <span className="dashboard__notice">Plan figures are placeholders</span>
-        )}
-        {offline && (
-          <span className="dashboard__notice">Backend offline, showing placeholders</span>
+      <div className="dashboard__intro">
+        <h1>Home Dashboard</h1>
+        <p className="dashboard__subtitle">Your account at a glance.</p>
+        {(month || offline || mode === MODES.PLAN) && (
+          <div className="dashboard__notices">
+            {month && <span>Figures for {month}</span>}
+            {mode === MODES.PLAN && !offline && <span>Plan figures are placeholders</span>}
+            {offline && (
+              <span className="dashboard__notice--warning">Backend offline, showing placeholders</span>
+            )}
+          </div>
         )}
       </div>
+
       <div className="dashboard__grid">
-        {categories.map((c) => (
-          <CategoryCard key={c.key} category={c} />
+        {categories.map((c, index) => (
+          <CategoryCard key={c.key} category={c} featured={index === 0} />
         ))}
       </div>
-      <AiInsights mode={mode} />
-      {accountId != null && <AccountDetails accountId={accountId} />}
+
+      <div className={`dashboard__activity ${hasAccount ? "" : "dashboard__activity--solo"}`}>
+        <AiInsights mode={mode} />
+        {hasAccount && (
+          <div className="dashboard__activity-main">
+            <AccountDetails accountId={accountId} />
+          </div>
+        )}
+      </div>
     </section>
   );
 }

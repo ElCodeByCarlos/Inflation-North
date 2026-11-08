@@ -1,28 +1,55 @@
 :root {
-  --bg: #f4f6fa;
+  --bg: #f6f7f3;
   --surface: #ffffff;
-  --border: #e3e7ef;
-  --text: #1b2230;
-  --muted: #667085;
-  --primary: #3b5bdb;
+  --surface-soft: #f8faf7;
+  --surface-accent: #edf3ec;
+  --border: #dde5dc;
+  --border-strong: #cfcfcf;
+  --text: #202e29;
+  --text-strong: #202b30;
+  --muted: #64716a;
+  --subtitle: #676767;
+  --primary: #173e30;
+  --primary-muted: #cfdfd2;
+  --on-primary: #ffffff;
+  --link: #345e49;
 
-  --income: #2f9e44;
-  --savings: #1c7ed6;
-  --expenses: #e8590c;
-  --investments: #7048e8;
+  --income: #173e30;
+  --savings: #2f6f52;
+  --expenses: #8a5a3b;
+  --investments: #3f6b7d;
 
-  --positive: #2f9e44;
-  --negative: #e03131;
+  --positive: #2f6f52;
+  --negative: #b4412f;
+
+  --shadow-card: 0 3px 12px rgba(23, 62, 48, 0.03);
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "IBM Plex Sans Devanagari", "Inter", system-ui, sans-serif;
+  --font-serif: "PT Serif", Georgia, "Times New Roman", serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #11151c;
-    --surface: #1a2029;
-    --border: #2a323f;
-    --text: #e6e9ef;
-    --muted: #9aa4b2;
-    --primary: #5c7cfa;
+    --bg: #101713;
+    --surface: #17211c;
+    --surface-soft: #1b2721;
+    --surface-accent: #16241d;
+    --border: #26352d;
+    --border-strong: #2f4238;
+    --text: #e8efe9;
+    --text-strong: #f2f7f3;
+    --muted: #9db0a5;
+    --subtitle: #9db0a5;
+    --primary: #1f5a44;
+    --primary-muted: #cfdfd2;
+    --on-primary: #ffffff;
+    --link: #9fd3b8;
+
+    --positive: #7bc59a;
+    --negative: #ef8a74;
+
+    --shadow-card: 0 3px 12px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -32,13 +59,21 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
   background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .app__content {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 28px 24px;
+  padding: 32px 48px 40px;
+}
+
+@media (max-width: 900px) {
+  .app__content {
+    padding: 28px 24px 32px;
+  }
 }
