@@ -155,3 +155,7 @@ All routes are under `/api`.
 - `AccountDashboard`, `AccountPageViewModel`, and the `react-router` dependency
   are not wired into the current app; account details are rendered inside the
   main dashboard instead.
+
+# Design
+We used Figma for our design work. We used a mixture of Agentic and manual work in order to finalize our design.
+Our final Figma design for our dashboard ended up looking like ![[./img/FinancialNorthDashboard.png]]
