@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router";
 import Taskbar from "./components/Taskbar/Taskbar.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
-import { AccountDashboard } from "./pages/AccountDashboard/AccountDashboard.jsx";
 import { MODES } from "./constants/categories.js";
 import { fetchAccounts } from "./services/api.js";
 
@@ -33,13 +31,5 @@ export default function App() {
         <Dashboard mode={mode} accountId={accountId} />
       </main>
     </div>
-  );
-}
-
-export default function App() {
-  return (
-    <BrowserRouter>
-      <AppLayout />
-    </BrowserRouter>
   );
 }
