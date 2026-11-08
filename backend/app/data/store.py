@@ -99,6 +99,10 @@ def get_monthly(account_id: int) -> list[dict]:
     return _rows("monthly_summary", account_id)
 
 
+def get_loans(account_id: int) -> list[dict]:
+    return _rows("loans", account_id)
+
+
 def get_account_detail(account_id: int, tx_limit: int = 50) -> dict | None:
     match = _accounts[_accounts["account_id"] == account_id]
     if match.empty:
@@ -122,7 +126,7 @@ def get_account_detail(account_id: int, tx_limit: int = 50) -> dict | None:
         "account": account,
         "district": _districts.get(account["district_id"]),
         "clients": clients,
-        "loans": _rows("loans", account_id),
+        "loans": get_loans(account_id),
         "standing_orders": _rows("standing_orders", account_id),
         "monthly_summary": get_monthly(account_id),
         "transactions": get_transactions(account_id, limit=tx_limit),

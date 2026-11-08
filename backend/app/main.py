@@ -10,7 +10,7 @@ from contextlib import asynccontextmanager  # noqa: E402
 from fastapi import FastAPI  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
-from app.api.routes import accounts, dashboard, insights  # noqa: E402
+from app.api.routes import accounts, dashboard, insights, scenario  # noqa: E402
 from app.data import store  # noqa: E402
 
 
@@ -33,6 +33,7 @@ app.add_middleware(
 app.include_router(accounts.router, prefix="/api")
 app.include_router(dashboard.router, prefix="/api")
 app.include_router(insights.router, prefix="/api")
+app.include_router(scenario.router, prefix="/api")
 app.include_router(accounts.router, prefix="/api")
 
 
